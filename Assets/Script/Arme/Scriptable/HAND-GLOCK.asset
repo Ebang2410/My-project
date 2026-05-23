@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f9c1292099b0dc7b478e20207b2915, type: 3}
+  m_Name: HAND-GLOCK
+  m_EditorClassIdentifier: 
+  id: 4
+  name: GLOCK
+  degat: 120
+  typeArme: 2
+  capacite: 17
+  capaciteMax: 102
+  timeNextBall: 0.25
+  distanceVie: 30
+  rayonDegat: 0
+  speedBall: 30
+  run: 3.9
+  walk: 2.4
