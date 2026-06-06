@@ -196,7 +196,16 @@ ModelImporter:
       - time: 0
         functionName: SpawnGun
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 535a6c9f4268dab47b1515a16e0d12e0,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: SnGun
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 3330c40ae2d122699a87c46f9dbae7b5,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -607,7 +616,8 @@ ModelImporter:
     hasTranslationDoF: 1
     hasExtraRoot: 0
     skeletonHasParents: 0
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 60e3152f06c30ab4b97fa503f8639b68, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 60e3152f06c30ab4b97fa503f8639b68,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

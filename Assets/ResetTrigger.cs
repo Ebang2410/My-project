@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class ResetTrigger : StateMachineBehaviour
 {
-    [SerializeField] PlayerScript playerScript;
+    [SerializeField]
+    string trigger;
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -18,11 +19,11 @@ public class ResetTrigger : StateMachineBehaviour
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        playerScript = animator.transform.GetComponent<PlayerScript>();
-        if(playerScript != null)
+        
+        if(animator.transform.GetComponent<PlayerScript>().IsServer)
         {
             Debug.Log("Reset ok");
-            playerScript.ResetShootTriggerServerRpc();
+            animator.ResetTrigger(trigger);
         }
     }
 

@@ -3,44 +3,42 @@ using Unity.Netcode;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Unity.Burst.Intrinsics;
 
 
 public class PlayerScript : NetworkBehaviour
 {
-    [Header(" Info Move")]
-    public Arme arme;
-    NetworkVariable <bool> isCrouch = new NetworkVariable<bool>(false);
-    public bool isLooking;
-    float turn = 0.14f;
-    float smooth;
-    public TypeArme typeArme;
-    [SerializeField]
-    Joystick joystickMove;
-    [SerializeField]
-    Joystick joystickLook;
-    [SerializeField]
-    ButtonAction buttonAction;
-    Transform cam;
-    float angle;
-    float timeLook = 5.0f;
-    float _timeLook;
-    float _timeAttack;
+    //Component
     Rigidbody rb;
     Animator animator;
     AudioSource audioSource;
     InputStarted inputStarted;
     ColliderManager colliderManager;
     GestionPointSpawn gestionPointSpawn;
-    Vector3 move3D = Vector3.zero;
+    AudioManagerCharacter audioManagerCharacter;
     Cinemachine cinemachine;
 
-    public bool OnDegat;
+    [Header("Joystick")]
+    [SerializeField]    Joystick joystickMove;
+    [SerializeField]    ButtonAction buttonAction;
+
+    [Header(" Info Move")]
+    public Arme arme;
+    NetworkVariable <bool> isCrouch = new NetworkVariable<bool>(false);//permet de connaitre si le jouer est accroupi ou debou
+    NetworkVariable<int> ValueModeMove = new NetworkVariable<int>(0);//type de placement 0 walk, 1 crouch , 2 run
+    Transform cam;
+    float _timeAttack;//temps d'attente pour la prochaine attack
+    Vector3 move3D = Vector3.zero;
+    
+    [Header("Arme")]
+    public TypeArme typeArme;
     public GunScript gunScript;
     public KnifeScript knifeScript;
+    [SerializeField] bool KnifeOnDegat;
+    public bool OnDegat;
     bool waeponKnife;
     bool isDestroy;
-    [SerializeField] bool KnifeOnDegat;
-
+    
     private void Awake() {
         TryGetComponent(out gestionPointSpawn);
     }
@@ -53,12 +51,14 @@ public class PlayerScript : NetworkBehaviour
         _timeAttack = 0;
         OnDegat = false;
 
+        ValueModeMove.OnValueChanged += ChangeMoveMode;
+
         TryGetComponent(out rb);
         TryGetComponent(out colliderManager);
         TryGetComponent(out audioSource);
         TryGetComponent(out cinemachine);
-
-        _timeLook = 0;
+        TryGetComponent(out audioManagerCharacter);
+        TryGetComponent(out animator);
 
         if (IsOwner)
         {
@@ -66,12 +66,17 @@ public class PlayerScript : NetworkBehaviour
             cam = GameObject.FindWithTag("MainCamera").transform;
 
             joystickMove = InputManager.input.joystickMove;
-            joystickLook = InputManager.input.joystickLook;
             buttonAction = InputManager.input.joystickShoot;
 
             cinemachine.enabled = true;
 
             GetComponent<PlayerInput>().enabled = true;
+
+            if(arme != null)
+            {
+                AnimeModeRpc(typeArme);
+            }
+            
             
         }
         else
@@ -86,12 +91,13 @@ public class PlayerScript : NetworkBehaviour
             
         }
         else
+        {
             rb.isKinematic = false;
-
-        TryGetComponent(out animator);
+        }
 
         if(gestionPointSpawn != null)
             isCrouch.OnValueChanged += CrouchChange;
+
     }
 
     void FixedUpdate()
@@ -118,31 +124,16 @@ public class PlayerScript : NetworkBehaviour
             float ActArme = 1;
 
             float speed = 0;
-            AnimeModeServerRpc(typeArme);
 
             if ((inputStarted.fire || buttonAction.fire) && _timeAttack <= 0.0f)
             {
                 _timeAttack = arme.timeNextBall;
-                _timeLook = timeLook;
 
-                AttackServerRpc();
-                gunScript.SnGunPlayClient();
-                ShootServerRpc();
-                
+                AttackRpc();
             }
             else
             {
-                _timeAttack -= Time.deltaTime;
-            }
-
-            if (_timeLook > 0.0f)
-            {
-                isLooking = true;
-                _timeLook -= Time.fixedDeltaTime;
-            }
-            else
-            {
-                isLooking = false;
+                _timeAttack -= Time.fixedDeltaTime;
             }
 
             if (inputStarted.move != Vector2.zero || joystickMove.Direction != Vector2.zero)
@@ -151,47 +142,48 @@ public class PlayerScript : NetworkBehaviour
                 Vector2 move2d = joystickMove.Direction != Vector2.zero ? joystickMove.Direction : inputStarted.move;
 
                 move3D = new Vector3(move2d.x, 0, move2d.y);
-                angle = cam.eulerAngles.y;
+                yAnimation = move2d.y; 
+                xAnimation = move2d.y < -.4f? -move2d.x : move2d.x;
                 
-                yAnimation = move2d.y;
-                if(move2d.y < 0.0f)
+                if (!isCrouch.Value && !inputStarted.fire)
                 {
-                    xAnimation = -move2d.x ;
-                }
-                else
-                {
-                    xAnimation = move2d.x;
-                }
-                
-                if (inputStarted.run == true && !isCrouch.Value && !inputStarted.fire)
-                {
+                    ChangeMoveModeServerRpc(2);
                     speedMove = 1;
-                    if (!isLooking || move3D.z >= 0)
+                    if (move3D.z >= -0.4f)
                         speed = arme.run + 2f;
-                    else if (move3D.z <= 0)
-                        speed = arme.run - 2f;
+                    else if (move3D.z < -0.4f)
+                        speed = arme.run;
                 }
                 else
                 {
+                    if (isCrouch.Value == true)
+                    {
+                        ChangeMoveModeServerRpc(1);
+                    }
+                    else
+                    {
+                        ChangeMoveModeServerRpc(0);
+                    }
+
                     speedMove = 0.5f;
 
-                    if (!isLooking || move3D.z >= 0)
+                    if( move3D.z >= -0.4f)
                         speed = arme.walk + 1;
-                    else if (move3D.z < 0)
-                        speed = arme.walk - 1f;
+                    else if (move3D.z < -0.4f)
+                        speed = arme.walk;
                 }
             }
             else
             {
                 move3D = Vector3.zero;
-                angle = cam.eulerAngles.y;
             }
 
-            AnimeMoveServerRpc(ActArme, isCrouch.Value, speedMove, xAnimation, yAnimation);
-            MoveServerRpc(move3D, angle, speed);
+            AnimeMoveRpc(ActArme, isCrouch.Value, speedMove, xAnimation, yAnimation);
+            MoveServerRpc(move3D, cam.eulerAngles.y, speed);
         }
     }
 
+    //Collider
     [Rpc(SendTo.Server)]
     void CrouchServerRpc()
     {
@@ -203,8 +195,22 @@ public class PlayerScript : NetworkBehaviour
         gestionPointSpawn.CrouchChange(newValue);
     }
 
+    //audio de marche 
     [Rpc(SendTo.Server)]
-    void AttackServerRpc()
+    void ChangeMoveModeServerRpc(int mode)
+    {
+        ValueModeMove.Value = mode;
+    }
+
+    void ChangeMoveMode(int previousValue,int newValue)
+    {
+        if(audioManagerCharacter != null)
+            audioManagerCharacter.ValueModeMove = newValue ;
+    }
+
+    //Animation Attack
+    [Rpc(SendTo.Server)]
+    void AttackRpc()
     {
         animator.SetTrigger("attack");
     }
@@ -215,40 +221,9 @@ public class PlayerScript : NetworkBehaviour
         animator.ResetTrigger("attack");
     }
 
+    //Animation de deplacement
     [Rpc(SendTo.Server)]
-    void AnimeMoveServerRpc(float ActArme, bool crouch, float speedMove, float x, float y)
-    {
-        animator.SetFloat("positionX", x);
-        animator.SetFloat("positionY", y);
-        animator.SetFloat("speed", speedMove);
-        animator.SetFloat("arme", ActArme);
-        animator.SetBool("crouch", crouch);
-    }
-
-    [Rpc(SendTo.Server)]
-    public void MoveServerRpc(Vector3 move3DNetwork, float angleNetwork, float speedNetwork)
-    {
-        if (angleNetwork != 0.0f)
-        {
-            //float rotate = Mathf.SmoothDampAngle(transform.eulerAngles.y, angleNetwork, ref smooth, turn);
-            transform.rotation = Quaternion.Euler(0, angleNetwork, 0);
-        }
-
-        if (move3DNetwork.sqrMagnitude >= 0.01f)
-            /* rb.MovePosition(transform.position + move3DNetwork * speedNetwork * Time.fixedDeltaTime * -1); */
-            transform.Translate(move3DNetwork.normalized * speedNetwork * Time.fixedDeltaTime);
-    }
-
-    public void Degat()
-    {
-        if (IsOwner)
-        {
-            OnDegat = !OnDegat;
-        }
-    }
-
-    [Rpc(SendTo.Server)]
-    void AnimeModeServerRpc(TypeArme armeAnimation)
+    public void AnimeModeRpc(TypeArme armeAnimation)
     {
         switch (armeAnimation)
         {
@@ -275,11 +250,44 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    [Rpc(SendTo.Server)]
+    void AnimeMoveRpc(float ActArme, bool crouch, float speedMove, float x, float y)
+    {
+        animator.SetFloat("positionX", x);
+        animator.SetFloat("positionY", y);
+        animator.SetFloat("speed", speedMove);
+        animator.SetFloat("arme", ActArme);
+        animator.SetBool("crouch", crouch);
+    }
+
+    // Deplacement dans le monde
+    [Rpc(SendTo.Server)]
+    public void MoveServerRpc(Vector3 move3DNetwork, float angleNetwork, float speedNetwork)
+    {
+        if (angleNetwork != 0.0f)
+        {
+            transform.rotation = Quaternion.Euler(0, angleNetwork, 0);
+        }
+
+        if (move3DNetwork.sqrMagnitude >= 0.01f)
+            transform.Translate(move3DNetwork.normalized * speedNetwork * Time.fixedDeltaTime);
+    }
+
+    //Activation des degat du Knife
+    public void Degat()
+    {
+        if (IsOwner)
+        {
+            OnDegat = !OnDegat;
+        }
+    }  
+
     public bool IsMe()
     {
         return IsOwner;
     }
 
+    //Spawner la ball dans le reseau
     [Rpc(SendTo.Server)]
     public void SpawnServerRpc()
     {
@@ -289,6 +297,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //event animator dans les animation de tire pour spawn la bal
     public void SpawnGun()
     {
         if(IsServer)
@@ -298,40 +307,7 @@ public class PlayerScript : NetworkBehaviour
         
     }
 
-
-    [ServerRpc]
-    void ShootServerRpc(ServerRpcParams rpcParams = default)
-    {
-        ulong senderClientId = rpcParams.Receive.SenderClientId;
-
-        List<ulong> targetClients = new List<ulong>();
-
-        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
-        {
-            // Exclure celui qui a tiré
-            if (clientId != senderClientId)
-            {
-                targetClients.Add(clientId);
-            }
-        }
-
-        ClientRpcParams rpcParamsSend = new ClientRpcParams
-        {
-            Send = new ClientRpcSendParams
-            {
-                TargetClientIds = targetClients.ToArray()
-            }
-        };
-
-        PlaySoundClientRpc(rpcParamsSend);
-    }
-
-    [ClientRpc]
-    void PlaySoundClientRpc(ClientRpcParams rpcParams = default)
-    {
-        gunScript.SnGunPlayClient();
-    }
-
+    //Changer arme du fusil au couteau et vise versa
     [Rpc(SendTo.Server)]
     void ChangeWeaponServerRpc()
     {
@@ -350,6 +326,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+    //Event animator de destruction du joueur
     public void DestroyPlayer()
     {
         if(IsServer)

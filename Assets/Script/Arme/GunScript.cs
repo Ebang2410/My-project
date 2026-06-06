@@ -2,7 +2,7 @@
 using UnityEngine;
 using Unity.Netcode;
 
-public class GunScript : NetworkBehaviour
+public class GunScript : MonoBehaviour
 {
     [SerializeField] AudioClip snGun;
     AudioSource audioSource;
@@ -15,8 +15,9 @@ public class GunScript : NetworkBehaviour
     GameObject bulletPrefab;
 
     public Transform spawnPoint;
-
+    [SerializeField]
     GestionPointSpawn gestionPointSpawn;
+    bool isfirt = true;
 
     private void OnEnable() {
          // FIX: condition corrigée — désactiver si AUCUN des deux n'est assigné
@@ -31,7 +32,10 @@ public class GunScript : NetworkBehaviour
             playerScript.arme = arme;
             playerScript.gunScript = this;
             playerScript.typeArme = arme.typeArme;
-            gestionPointSpawn = playerScript.transform.GetComponent<GestionPointSpawn>();
+            if(!isfirt && playerScript.IsMe())
+                playerScript.AnimeModeRpc(arme.typeArme);
+            else
+                isfirt = false;
         }
         else if (arme != null && enemyScript != null)
         {
@@ -52,21 +56,16 @@ public class GunScript : NetworkBehaviour
     private void Awake() {
         TryGetComponent(out audioSource);
 
-        if(audioSource != null)
+        if (playerScript != null)
         {
-            audioSource.Play();
-            Debug.Log("Sfx gun play First" );
+            playerScript.GetComponent<AudioManagerCharacter>().gunScript = this;
         }
-
     }
 
 
     public void SpawnBall()
     {
-        // FIX: protection IsServer — NetworkObject.Spawn() ne peut être appelé que côté serveur
-        if (!IsServer) return;
-
-        // FIX: utilisation de bulletPrefab (anciennement "gameObject", membre hérité écrasé)
+        //  utilisation de bulletPrefab (anciennement "gameObject", membre hérité écrasé)
         if (bulletPrefab == null || spawnPoint == null) return;
         GameObject bal = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
         bal.transform.GetComponent<BallScript>().SetInfo(this,arme.degat, arme.speedBall, arme.distanceVie);
@@ -74,16 +73,22 @@ public class GunScript : NetworkBehaviour
         bal.GetComponent<NetworkObject>().Spawn();
     }
 
-    public void SnGunPlayClient()
+    public void SnGunPlay()
     {
         if(audioSource != null)
             audioSource.PlayOneShot(snGun);
         Debug.Log("Sfx gun play");
     }
 
+    public void InitSnGun()
+    {
+        if(audioSource != null)
+            audioSource.PlayOneShot(snGun,0.1f);
+    }
+
     public void AddKill()
     {
-        if(playerScript != null && IsServer)
+        if(playerScript != null )
             InfoParty.infoParty.AddKillServerRpc(playerScript.GetComponent<NetworkObject>().OwnerClientId);
     }
 

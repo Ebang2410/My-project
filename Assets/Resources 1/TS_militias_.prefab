@@ -387,7 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: e80b27983a0d60141a8e2fd43f9dc827, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -395,6 +394,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 7334525504142978172}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &3318580595442224737
 AudioSource:
   m_ObjectHideFlags: 0
@@ -407,8 +407,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: e80b27983a0d60141a8e2fd43f9dc827, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -453,7 +453,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -593,7 +593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: 6f4d5573a385d3948aa1f08a5621c9cb, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -601,6 +600,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 8125741388119515338}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &8029996905047680092
 AudioSource:
   m_ObjectHideFlags: 0
@@ -613,8 +613,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 6f4d5573a385d3948aa1f08a5621c9cb, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -659,7 +659,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1139,7 +1139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: e80b27983a0d60141a8e2fd43f9dc827, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -1147,6 +1146,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 657786639316345782}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &3569441755995902347
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1159,8 +1159,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: e80b27983a0d60141a8e2fd43f9dc827, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -1205,7 +1205,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2467,7 +2467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: ec5cd49f8987a494d96bf93339c8bfb3, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -2475,6 +2474,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 2231374263072143096}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &5829319680757991439
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2487,8 +2487,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ec5cd49f8987a494d96bf93339c8bfb3, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -2533,7 +2533,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2794,7 +2794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: e80b27983a0d60141a8e2fd43f9dc827, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -2802,6 +2801,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 3157237517386443872}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &7820422717799130873
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2814,8 +2814,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: e80b27983a0d60141a8e2fd43f9dc827, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -2860,7 +2860,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3089,7 +3089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: ec5cd49f8987a494d96bf93339c8bfb3, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -3097,6 +3096,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 3992815354526650134}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &6669997123523492637
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3109,8 +3109,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ec5cd49f8987a494d96bf93339c8bfb3, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -3155,7 +3155,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3367,7 +3367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: 876fbc1819bf43d42b23009fc2a37876, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -3375,6 +3374,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 8494215554169249566}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &4192138081340358129
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3387,8 +3387,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 876fbc1819bf43d42b23009fc2a37876, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -3433,7 +3433,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4449,7 +4449,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4494,7 +4494,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4861,7 +4861,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4906,7 +4906,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5969,7 +5969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 0}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -5977,6 +5976,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 6073035316337397223}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &8254097155907623311
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6035,7 +6035,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6175,7 +6175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: 9cccbc0c49ea02e44ac68422bc2714e8, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -6183,6 +6182,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 3786025041994394443}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &1093611386248728304
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6195,8 +6195,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 9cccbc0c49ea02e44ac68422bc2714e8, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -6241,7 +6241,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6613,7 +6613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 0}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -6621,6 +6620,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 1370016168213644837}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &5506190314718378216
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6679,7 +6679,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6997,7 +6997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: 876fbc1819bf43d42b23009fc2a37876, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -7005,6 +7004,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 8821048766488548148}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &2095543179854187666
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7017,8 +7017,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 876fbc1819bf43d42b23009fc2a37876, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -7063,7 +7063,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7520,7 +7520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 0}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -7528,6 +7527,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 8523972977029063121}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &1572303901856091773
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7586,7 +7586,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8148,16 +8148,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  arme: {fileID: 0}
-  isLooking: 0
-  typeArme: 0
   joystickMove: {fileID: 0}
-  joystickLook: {fileID: 0}
   buttonAction: {fileID: 0}
-  OnDegat: 0
+  arme: {fileID: 0}
+  typeArme: 0
   gunScript: {fileID: 0}
   knifeScript: {fileID: 0}
   KnifeOnDegat: 0
+  OnDegat: 0
 --- !u!114 &2960015258120366334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8255,6 +8253,12 @@ MonoBehaviour:
   joystick: {fileID: 0}
   joystickShoot: {fileID: 0}
   CamShoot: {fileID: 3751657249642605620}
+  lockRaduis: 10
+  lockFov: 60
+  lockbodySpeed: 10
+  unlockDelay: 0.8
+  _lockTarget: {fileID: 0}
+  isShooting: 1
   CinemachineCameraTarget: {fileID: 6647053336360144005}
   TopClamp: 70
   BottomClamp: -30
@@ -8357,6 +8361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3330c40ae2d122699a87c46f9dbae7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunScript: {fileID: 0}
   snFoot:
   - {fileID: 8300000, guid: 72b076623538fe64187a0ef594b7af2a, type: 3}
   - {fileID: 8300000, guid: 3b2fd8aa823253841a84bf5e637506fa, type: 3}
@@ -8364,6 +8369,10 @@ MonoBehaviour:
   audioSources:
   - {fileID: 263898087928841422}
   - {fileID: 8674939095372992900}
+  VsnRun: 0.503
+  VsnWalk: 0.733
+  VsnCrouch: 0.089
+  ValueModeMove: 0
 --- !u!1 &8365974045347425609
 GameObject:
   m_ObjectHideFlags: 0
@@ -8994,7 +9003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 0}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -9002,6 +9010,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 7967808463901838994}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &952775927968636047
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9060,7 +9069,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -9404,7 +9413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133967974743a214eb073ff6143f8c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   snGun: {fileID: 8300000, guid: 9cccbc0c49ea02e44ac68422bc2714e8, type: 3}
   playerScript: {fileID: 1391872997300259826}
   enemyScript: {fileID: 0}
@@ -9412,6 +9420,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8885333926137703602, guid: e8b93a03a4a3be47cb03a1dafad77062,
     type: 3}
   spawnPoint: {fileID: 2936353921958250332}
+  gestionPointSpawn: {fileID: 6386908194088029045}
 --- !u!82 &3284801115743100998
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9424,8 +9433,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5227391428195951385, guid: 3dc5bcb72860b6345a662a8ccec7587f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 9cccbc0c49ea02e44ac68422bc2714e8, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.3
   Loop: 0
@@ -9470,7 +9479,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using System;
 
-
-#if ENABLE_INPUT_SYSTEM 
-    [RequireComponent(typeof(PlayerInput))]
+#if ENABLE_INPUT_SYSTEM
+[RequireComponent(typeof(PlayerInput))]
 #endif
 public class Cinemachine : NetworkBehaviour {
 
@@ -22,6 +22,17 @@ public class Cinemachine : NetworkBehaviour {
     const float _threshold = 0.01f;
     float _currentYaw;
     float _yawVelocity;
+   
+    [Header("Auto lock")]
+    [SerializeField ] float lockRaduis;
+    [Range(15f,90f)] 
+    [SerializeField] float lockFov;
+    [Range(1f,20f)]
+    [SerializeField] float lockbodySpeed;
+    [SerializeField] float unlockDelay = 0.8f;
+    public Transform _lockTarget;
+    float _unlockDelay;
+    [SerializeField] bool isShooting;
 
     private void Start() {
         
@@ -68,9 +79,13 @@ public class Cinemachine : NetworkBehaviour {
     [SerializeField] float speedShoot;
     [Range(.01f,.9f)][SerializeField] float smoothTime;
 
+
     private void LateUpdate() {
-        if(IsOwner)
+        if(!IsOwner) return;
+
+        //if(!isShooting)
             CameraRotation();
+        UpdateLock();
     }
 
     private void CameraRotation()
@@ -103,6 +118,80 @@ public class Cinemachine : NetworkBehaviour {
         _currentYaw = Mathf.SmoothDampAngle(_currentYaw,_cinemachineTargetYaw, ref _yawVelocity, smoothTime);
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(CameraAngleOverride,
             _currentYaw, 0.0f);
+    }
+
+    void UpdateLock()
+    {
+        if(isShooting)
+        {
+            _unlockDelay = unlockDelay;
+            if(_lockTarget == null)
+            {
+                _lockTarget = FindBestTarget();
+            }
+            else if(!IsTargetValid(_lockTarget))
+                _lockTarget = FindBestTarget();
+        }
+        else
+        {
+            if(_lockTarget != null)
+            {
+                _unlockDelay -= Time.deltaTime;
+                if(_unlockDelay <= 0f)
+                    _lockTarget = null;
+            }
+        }
+
+        if(_lockTarget != null)
+            RotateBodyToTarget();
+    }
+
+    private void RotateBodyToTarget()
+    {
+        Vector3 dir = _lockTarget.position - CinemachineCameraTarget.transform.position;
+        dir.y = 0;
+        if(dir.sqrMagnitude < .001f) return;
+        float targetYaw = Mathf.Atan2(dir.x,dir.z) * Mathf.Rad2Deg;
+        _cinemachineTargetYaw = Mathf.SmoothDampAngle(_cinemachineTargetYaw,targetYaw,ref _yawVelocity,1/lockbodySpeed);
+
+        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(CameraAngleOverride,_cinemachineTargetYaw,0);                                        
+    }
+
+    private bool IsTargetValid(Transform lockTarget)
+    {
+        if(lockTarget == null || !lockTarget.gameObject.activeInHierarchy) return false;
+
+        float dist  =Vector3.Distance(transform.position, lockTarget.position);
+
+        return dist <= lockRaduis;
+    }
+
+    private Transform FindBestTarget()
+    {
+       Collider[] colliders = Physics.OverlapSphere(transform.position,lockRaduis);
+       Transform best = null;
+       float bestDist = float.MaxValue;
+       float halfFov = lockFov * .5f;
+
+       foreach (var item in colliders)
+       {
+            if(!item.CompareTag("Enemy")) continue;
+            if(item.transform.root == transform.root) continue;
+
+            Vector3 toEnemy = item.transform.position - transform.position;
+            float angle = Vector3.Angle(transform.forward, toEnemy);
+
+            if(angle > halfFov) continue;
+
+            float dist = toEnemy.sqrMagnitude;
+            if(dist < bestDist)
+            {
+                bestDist = dist;
+                best = item.transform;
+            }
+       }
+
+       return best;
     }
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
